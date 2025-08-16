@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MemoryLeaf</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login" class="screen">
+    <h1>🔐 Welcome to MemoryLeaf</h1>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
+    <p><a href="#" id="createAccount">Create New Account</a></p>
+  </div>
+
+  <!-- Vault Animation -->
+  <div id="vaultAnim" class="screen hidden">
+    <video id="vaultVideo" src="assets/vault.mp4"></video>
+  </div>
+
+  <!-- Welcome Screen -->
+  <div id="welcome" class="screen hidden">
+    <h1 class="welcome-text">✨ Welcome to MemoryLeaf ✨</h1>
+    <button id="openDiaryBtn">Enter Diary</button>
+  </div>
+
+  <!-- Book Animation -->
+  <div id="bookAnim" class="screen hidden">
+    <video id="bookVideo" src="assets/book.mp4"></video>
+  </div>
+
+  <!-- Diary Dashboard -->
+  <div id="diary" class="screen hidden">
+    <h2 id="diaryName">📔 My Diary</h2>
+
+    <!-- Date picker -->
+    <input type="date" id="datePicker">
+    <p id="dateDisplay"></p>
+
+    <textarea id="pageText" placeholder="Write your memory..."></textarea>
+
+    <div class="photos">
+      <p>Attach up to 2 Photos:</p>
+      <input type="file" accept="image/*"><br>
+      <input type="file" accept="image/*">
+    </div>
+
+    <div class="music">
+      <p>🎵 Add a Song:</p>
+      <input type="file" accept="audio/*"><br>
+      <input type="text" id="songUrl" placeholder="Or paste a song link">
+      <button id="playSong">▶️ Play</button>
+      <audio id="audioPlayer" controls></audio>
+    </div>
+
+    <div class="page-controls">
+      <button id="prevPage">⬅️ Previous</button>
+      <span id="pageNumber">Page 1</span>
+      <button id="nextPage">Next ➡️</button>
+    </div>
+
+    <button id="savePage">💾 Save Page</button>
+    <button id="toggleTheme">🌙 Toggle Brightness</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

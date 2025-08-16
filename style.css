@@ -1,0 +1,150 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.dark {
+  background: #222;
+  color: #eee;
+}
+
+/* Hide screens by default */
+.hidden {
+  display: none;
+}
+
+.screen {
+  padding: 20px;
+}
+
+/* Form styling */
+input, textarea, button {
+  margin: 8px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+  border: none;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+/* Responsive video animations */
+video {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;   /* Laptop default */
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+/* Welcome screen */
+#welcome h1 {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  margin-bottom: 20px;
+}
+
+/* Diary styling */
+#diaryName {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  margin-bottom: 10px;
+}
+
+#dateDisplay {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+textarea {
+  width: 90%;
+  height: 150px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+.photos, .music {
+  margin: 15px 0;
+}
+
+.page-controls {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+#pageNumber {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+
+/* Tablet and small laptops */
+@media (max-width: 1024px) {
+  video {
+    max-height: 70vh; /* shrink video on tablet */
+  }
+  textarea {
+    width: 95%;
+    height: 140px;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  video {
+    max-height: 55vh; /* smaller on phones */
+  }
+  textarea {
+    width: 95%;
+    height: 120px;
+    font-size: 14px;
+  }
+  input, button {
+    width: 90%;
+    max-width: 320px;
+    font-size: 14px;
+  }
+  .page-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  video {
+    max-height: 45vh; /* very compact on tiny phones */
+  }
+  #dateDisplay {
+    font-size: 0.9em;
+  }
+  #welcome h1 {
+    font-size: 1.3em;
+  }
+  textarea {
+    height: 100px;
+  }
+}
