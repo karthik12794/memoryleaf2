@@ -9,9 +9,11 @@ const dateDisplay = document.getElementById("dateDisplay");
 const pageNumber = document.getElementById("pageNumber");
 const datePicker = document.getElementById("datePicker");
 
-let diaryData = {};  
 let currentDate = null;
 let currentPage = 0;
+
+// 🌍 Backend API base URL
+const API_URL = "https://memoryleaf-backend-1.onrender.com";
 
 // 📅 Format date
 function formatDate(dateObj) {
@@ -24,10 +26,16 @@ function updateDateDisplay() {
   datePicker.valueAsDate = new Date(currentDate);
 }
 
-// 📝 Load current page
-function loadPage() {
-  if (!diaryData[currentDate]) diaryData[currentDate] = [""];
-  pageText.value = diaryData[currentDate][currentPage];
+// 📝 Load current page from backend
+async function loadPage() {
+  try {
+    const res = await fetch(`${API_URL}/getPage?date=${encodeURIComponent(currentDate)}&page=${currentPage}`);
+    const data = await res.json();
+    pageText.value = data.content || "";
+  } catch (err) {
+    console.error("Error loading page:", err);
+    pageText.value = "";
+  }
   pageNumber.textContent = `Page ${currentPage + 1}`;
   updateDateDisplay();
 }
@@ -71,10 +79,23 @@ document.getElementById("bookVideo").addEventListener("ended", () => {
   loadPage();
 });
 
-// 💾 Save Page
-document.getElementById("savePage").onclick = () => {
-  diaryData[currentDate][currentPage] = pageText.value;
-  alert(`✅ Page ${currentPage + 1} saved for ${currentDate}`);
+// 💾 Save Page to backend
+document.getElementById("savePage").onclick = async () => {
+  try {
+    await fetch(`${API_URL}/savePage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        date: currentDate,
+        page: currentPage,
+        content: pageText.value,
+      }),
+    });
+    alert(`✅ Page ${currentPage + 1} saved for ${currentDate}`);
+  } catch (err) {
+    alert("❌ Error saving page. Check console.");
+    console.error(err);
+  }
 };
 
 // 🌙 Toggle Theme
@@ -111,7 +132,6 @@ document.getElementById("createAccount").onclick = () => {
 // ⬅️➡️ Page Navigation
 document.getElementById("nextPage").onclick = () => {
   currentPage++;
-  if (!diaryData[currentDate][currentPage]) diaryData[currentDate].push("");
   loadPage();
 };
 
@@ -133,3 +153,5 @@ datePicker.onchange = () => {
     loadPage();
   }
 };
+
+
