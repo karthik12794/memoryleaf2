@@ -11,14 +11,14 @@ const datePicker = document.getElementById("datePicker");
 
 let currentDate = null;
 let currentPage = 0;
-let userId = null; // store logged-in user
+let userId = null;
 
 // 🌍 Backend API base URL
-const API_URL = "https://memoryleaf-backend-1.onrender.com";
+const API_BASE = "https://memoryleaf-backend-1.onrender.com";
 
 // 📅 Format date
 function formatDate(dateObj) {
-  return dateObj.toDateString(); // Example: "Sat Aug 17 2025"
+  return dateObj.toDateString();
 }
 
 // 📅 Update date display
@@ -30,13 +30,10 @@ function updateDateDisplay() {
 // 📝 Load current page from backend
 async function loadPage() {
   try {
-    const res = await fetch(`${API_URL}/api/vault/${userId}`);
+    const res = await fetch(`${API_BASE}/api/vault/${userId}`);
     const data = await res.json();
 
-    // Filter by current date (backend stores date in "site", content in "password")
     const entries = data.filter((e) => e.site === currentDate);
-
-    // Get entry for this page
     const entry = entries[currentPage];
     pageText.value = entry ? entry.password : "";
   } catch (err) {
@@ -76,7 +73,7 @@ document.getElementById("loginBtn").onclick = async () => {
   }
 
   try {
-    const res = await fetch(`${API_URL}/api/auth/login`, {
+    const res = await fetch(`${API_BASE}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: user, password: pass }),
@@ -84,7 +81,7 @@ document.getElementById("loginBtn").onclick = async () => {
 
     const data = await res.json();
     if (res.ok) {
-      userId = data.userId; // ✅ store logged-in user
+      userId = data.userId;
       localStorage.setItem("userId", userId);
 
       login.classList.add("hidden");
@@ -130,14 +127,14 @@ document.getElementById("bookVideo").addEventListener("ended", () => {
 // 💾 Save Page to backend
 document.getElementById("savePage").onclick = async () => {
   try {
-    await fetch(`${API_URL}/api/vault`, {
+    await fetch(`${API_BASE}/api/vault`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         userId,
-        site: currentDate, // storing date in "site" field
+        site: currentDate,
         username: "Diary",
-        password: pageText.value, // storing diary text in "password" field
+        password: pageText.value,
       }),
     });
     alert(`✅ Page ${currentPage + 1} saved for ${currentDate}`);
@@ -175,7 +172,7 @@ document.getElementById("forgotPassword").onclick = () => {
   alert("Password reset feature will be added later.");
 };
 
-// ✅ Create Account (works with backend)
+// ✅ Create Account
 document.getElementById("createAccount").onclick = async () => {
   const user = document.getElementById("username").value;
   const pass = document.getElementById("password").value;
@@ -185,7 +182,7 @@ document.getElementById("createAccount").onclick = async () => {
   }
 
   try {
-    const res = await fetch(`${API_URL}/api/auth/register`, {
+    const res = await fetch(`${API_BASE}/api/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: user, password: pass }),
