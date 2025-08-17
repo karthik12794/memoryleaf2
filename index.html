@@ -1,74 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>MemoryLeaf</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Login Screen -->
   <div id="login" class="screen">
     <div class="login-box">
       <h1>🔐 Welcome to MemoryLeaf</h1>
-      <input type="text" id="username" placeholder="Username">
-      <input type="password" id="password" placeholder="Password">
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
       <button id="loginBtn">Login</button>
-      <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
-      <p><a href="#" id="createAccount">Create New Account</a></p>
+      <div class="login-links">
+        <a href="#" id="forgotPassword">Forgot Password?</a>
+        <a href="#" id="createAccount">Create New Account</a>
+      </div>
     </div>
   </div>
 
   <!-- Vault Animation -->
   <div id="vaultAnim" class="screen hidden">
-    <video id="vaultVideo" src="assets/vault.mp4" autoplay muted playsinline></video>
+    <video id="vaultVideo" src="assets/vault.mp4" muted playsinline></video>
+    <button class="playBtn hidden" id="vaultPlay">▶️ Play</button>
   </div>
 
   <!-- Welcome Screen -->
   <div id="welcome" class="screen hidden">
     <h1 class="welcome-text">✨ Welcome to MemoryLeaf ✨</h1>
-    <button id="openDiaryBtn">Enter Diary</button>
+    <button id="openDiaryBtn" class="primary">Enter Diary</button>
   </div>
 
   <!-- Book Animation -->
   <div id="bookAnim" class="screen hidden">
-    <video id="bookVideo" src="assets/book.mp4" autoplay muted playsinline></video>
+    <video id="bookVideo" src="assets/book.mp4" muted playsinline></video>
+    <button class="playBtn hidden" id="bookPlay">▶️ Play</button>
   </div>
 
   <!-- Diary Dashboard -->
   <div id="diary" class="screen hidden">
-    <h2 id="diaryName">📔 My Diary</h2>
+    <div class="diary-wrap">
+      <h2 id="diaryName">📔 My Diary</h2>
 
-    <!-- Date picker -->
-    <input type="date" id="datePicker">
-    <p id="dateDisplay"></p>
+      <div class="date-row">
+        <input type="date" id="datePicker" />
+        <p id="dateDisplay"></p>
+      </div>
 
-    <textarea id="pageText" placeholder="Write your memory..."></textarea>
+      <textarea id="pageText" placeholder="Write your memory..."></textarea>
 
-    <div class="photos">
-      <p>Attach up to 2 Photos:</p>
-      <input type="file" accept="image/*"><br>
-      <input type="file" accept="image/*">
+      <div class="photos">
+        <p>📸 Attach up to 2 Photos:</p>
+        <input type="file" accept="image/*" /><br />
+        <input type="file" accept="image/*" />
+      </div>
+
+      <div class="music">
+        <p>🎵 Add a Song:</p>
+        <input type="file" accept="audio/*" /><br />
+        <div class="song-row">
+          <input type="text" id="songUrl" placeholder="Or paste a song link" />
+          <button id="playSong">▶️ Play</button>
+        </div>
+        <audio id="audioPlayer" controls></audio>
+      </div>
+
+      <div class="page-controls">
+        <button id="prevPage">⬅️ Previous</button>
+        <span id="pageNumber">Page 1</span>
+        <button id="nextPage">Next ➡️</button>
+      </div>
+
+      <div class="action-row">
+        <button id="savePage" class="primary">💾 Save Page</button>
+        <button id="toggleTheme">🌙 Toggle Brightness</button>
+      </div>
     </div>
-
-    <div class="music">
-      <p>🎵 Add a Song:</p>
-      <input type="file" accept="audio/*"><br>
-      <input type="text" id="songUrl" placeholder="Or paste a song link">
-      <button id="playSong">▶️ Play</button>
-      <audio id="audioPlayer" controls></audio>
-    </div>
-
-    <div class="page-controls">
-      <button id="prevPage">⬅️ Previous</button>
-      <span id="pageNumber">Page 1</span>
-      <button id="nextPage">Next ➡️</button>
-    </div>
-
-    <button id="savePage">💾 Save Page</button>
-    <button id="toggleTheme">🌙 Toggle Brightness</button>
   </div>
 
   <script src="script.js"></script>
+  <script>
+    // --- Minimal autoplay fallback that works with your existing script.js flow ---
+    function tryAutoplay(videoEl, buttonEl) {
+      if (!videoEl) return;
+      const tryPlay = () =>
+        videoEl.play().catch(() => {
+          if (buttonEl) buttonEl.classList.remove("hidden");
+        });
+
+      // Try immediately (for when screen is already visible)
+      tryPlay();
+
+      // If button shows, clicking it starts the video
+      if (buttonEl) {
+        buttonEl.addEventListener("click", () => {
+          videoEl.play();
+          buttonEl.classList.add("hidden");
+        });
+      }
+
+      // Also try once the metadata loads (some browsers prefer this)
+      videoEl.addEventListener("loadeddata", tryPlay, { once: true });
+    }
+
+    // Hook into your existing screen transitions after DOM ready
+    document.addEventListener("DOMContentLoaded", () => {
+      const vaultVideo = document.getElementById("vaultVideo");
+      const vaultBtn = document.getElementById("vaultPlay");
+      const bookVideo = document.getElementById("bookVideo");
+      const bookBtn = document.getElementById("bookPlay");
+
+      // When vault screen is shown by your script.js, try autoplay
+      const showVaultObserver = new MutationObserver(() => {
+        if (!document.getElementById("vaultAnim").classList.contains("hidden")) {
+          tryAutoplay(vaultVideo, vaultBtn);
+        }
+      });
+      showVaultObserver.observe(document.getElementById("vaultAnim"), { attributes: true });
+
+      // When book screen is shown by your script.js, try autoplay
+      const showBookObserver = new MutationObserver(() => {
+        if (!document.getElementById("bookAnim").classList.contains("hidden")) {
+          tryAutoplay(bookVideo, bookBtn);
+        }
+      });
+      showBookObserver.observe(document.getElementById("bookAnim"), { attributes: true });
+    });
+  </script>
 </body>
 </html>
