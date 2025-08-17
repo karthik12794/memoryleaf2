@@ -1,75 +1,77 @@
-* {
+/* Reset */
+body, html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
   font-family: Arial, sans-serif;
 }
 
-/* Screens full size */
+/* Screens */
 .screen {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100vh;
   width: 100vw;
   text-align: center;
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
-/* Background for login */
+/* Login Background */
 .login-bg {
-  background: url("assets/login-bg.png") no-repeat center center/cover;
+  background: url("assets/login-bg.png") no-repeat center center;
+  background-size: cover;
   color: white;
+  position: relative;
 }
 
-#login input, #login button {
+.login-box {
+  background: rgba(0, 0, 0, 0.6); /* dark overlay box */
+  padding: 25px;
+  border-radius: 12px;
+  width: 85%;
+  max-width: 400px;
+}
+
+.login-box h1 {
+  margin-bottom: 20px;
+}
+
+.login-box input, 
+.login-box button {
   display: block;
   margin: 10px auto;
-  padding: 10px;
-  width: 80%;
-  max-width: 300px;
-  border-radius: 8px;
+  padding: 12px;
+  width: 90%;
+  border-radius: 6px;
   border: none;
+  font-size: 16px;
 }
 
-#login button {
-  background: #4caf50;
+.login-box button {
+  background: #4CAF50;
   color: white;
+  font-weight: bold;
   cursor: pointer;
 }
 
-#login p {
-  margin-top: 10px;
+.login-box p {
+  margin: 8px 0;
 }
 
-#login p a {
-  color: #fff;
-  text-decoration: underline;
+.login-box a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 14px;
 }
 
-/* Animations full screen */
-#vaultVideo, #bookVideo {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-}
-
-/* Diary */
-#diary {
-  padding: 20px;
-  background: #f5f5f5;
-  overflow-y: auto;
-}
-
-textarea {
+/* Videos full screen */
+video {
   width: 100%;
-  height: 150px;
-  margin: 15px 0;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  height: 100%;
+  object-fit: cover;
 }
