@@ -5,43 +5,43 @@
   box-sizing: border-box;
 }
 
-html, body {
+body, html {
   height: 100%;
   width: 100%;
   font-family: Arial, sans-serif;
-  background: #000;
-  color: #fff;
   overflow: hidden;
 }
 
-/* Screens */
+/* Common screens */
 .screen {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* Background for Login */
+/* Login Screen */
 #login {
   background: url("assets/nature.png") no-repeat center center/cover;
 }
 
 .login-box {
-  background: rgba(0,0,0,0.6);
+  background: rgba(255, 255, 255, 0.9);
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 10px;
   text-align: center;
-  width: 85%;
+  width: 90%;
   max-width: 400px;
+}
+
+.login-box h1 {
+  margin-bottom: 15px;
 }
 
 .login-box input {
@@ -49,68 +49,57 @@ html, body {
   width: 100%;
   margin: 10px 0;
   padding: 10px;
-  border: none;
-  border-radius: 6px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
 }
 
 .login-box button {
   width: 100%;
   padding: 10px;
-  background: #4CAF50;
-  border: none;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 16px;
-}
-
-.login-links {
   margin-top: 10px;
-}
-.login-links a {
-  color: #00f;
-  text-decoration: none;
-  font-size: 14px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-/* Videos full screen */
-video {
+/* Animation videos */
+#vaultAnim video,
+#bookAnim video {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Welcome screen */
+/* Welcome */
 #welcome {
-  flex-direction: column;
+  background: linear-gradient(to bottom, #cce7ff, #e6ffe6);
+  text-align: center;
 }
-.welcome-text {
-  margin-bottom: 20px;
-}
+
 #welcome button {
+  margin-top: 20px;
   padding: 12px 20px;
-  font-size: 18px;
-  border-radius: 8px;
-  background: #2196F3;
   border: none;
-  color: #fff;
+  border-radius: 8px;
+  background: green;
+  color: white;
+  cursor: pointer;
 }
 
 /* Diary */
 #diary {
-  flex-direction: column;
-  padding: 20px;
+  padding: 10px;
+  background: #fdfdfd;
   overflow-y: auto;
-  background: #111;
 }
 
 #pageText {
   width: 100%;
-  height: 200px;
-  margin: 15px 0;
+  height: 150px;
+  margin: 10px 0;
   padding: 10px;
-  border-radius: 8px;
-}
-
-button {
-  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
