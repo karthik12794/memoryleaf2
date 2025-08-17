@@ -1,70 +1,73 @@
 /* Reset */
-body, html {
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
   height: 100%;
   width: 100%;
   font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
 }
 
 /* Screens */
 .screen {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 100vh;
   width: 100vw;
-  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .hidden {
   display: none;
 }
 
-/* Login Background */
-.login-bg {
-  background: url("assets/login-bg.png") no-repeat center center;
-  background-size: cover;
-  color: white;
-  position: relative;
+/* Background for Login */
+#login {
+  background: url("assets/nature.png") no-repeat center center/cover;
 }
 
 .login-box {
-  background: rgba(0, 0, 0, 0.6); /* dark overlay box */
-  padding: 25px;
+  background: rgba(0,0,0,0.6);
+  padding: 20px;
   border-radius: 12px;
+  text-align: center;
   width: 85%;
   max-width: 400px;
 }
 
-.login-box h1 {
-  margin-bottom: 20px;
+.login-box input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
 }
 
-.login-box input, 
 .login-box button {
-  display: block;
-  margin: 10px auto;
-  padding: 12px;
-  width: 90%;
-  border-radius: 6px;
+  width: 100%;
+  padding: 10px;
+  background: #4CAF50;
   border: none;
+  border-radius: 6px;
+  color: #fff;
   font-size: 16px;
 }
 
-.login-box button {
-  background: #4CAF50;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+.login-links {
+  margin-top: 10px;
 }
-
-.login-box p {
-  margin: 8px 0;
-}
-
-.login-box a {
-  color: #ddd;
+.login-links a {
+  color: #00f;
   text-decoration: none;
   font-size: 14px;
 }
@@ -74,4 +77,40 @@ video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Welcome screen */
+#welcome {
+  flex-direction: column;
+}
+.welcome-text {
+  margin-bottom: 20px;
+}
+#welcome button {
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 8px;
+  background: #2196F3;
+  border: none;
+  color: #fff;
+}
+
+/* Diary */
+#diary {
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+  background: #111;
+}
+
+#pageText {
+  width: 100%;
+  height: 200px;
+  margin: 15px 0;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+button {
+  cursor: pointer;
 }
