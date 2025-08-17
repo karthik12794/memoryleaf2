@@ -34,11 +34,11 @@ async function loadPage() {
     const data = await res.json();
 
     // Filter by current date
-    const entries = data.filter(e => e.date === currentDate);
+    const entries = data.filter(e => e.site === currentDate);
 
     // Get entry for this page
     const entry = entries[currentPage];
-    pageText.value = entry ? entry.content : "";
+    pageText.value = entry ? entry.password : "";
   } catch (err) {
     console.error("Error loading page:", err);
     pageText.value = "";
@@ -147,12 +147,37 @@ document.getElementById("playSong").onclick = () => {
   }
 };
 
-// Forgot Password / Create Account
+// Forgot Password
 document.getElementById("forgotPassword").onclick = () => {
   alert("Password reset feature will be added later.");
 };
-document.getElementById("createAccount").onclick = () => {
-  alert("Account creation feature will be added later.");
+
+// ✅ Create Account (now working with backend)
+document.getElementById("createAccount").onclick = async () => {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+
+  if (!user || !pass) {
+    return alert("Enter username & password!");
+  }
+
+  try {
+    const res = await fetch(`${API_URL}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: user, password: pass }),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert("✅ Account created! You can now log in.");
+    } else {
+      alert("❌ " + data.error);
+    }
+  } catch (err) {
+    console.error("Register error:", err);
+    alert("Server error, try again later.");
+  }
 };
 
 // ⬅️➡️ Page Navigation
@@ -179,4 +204,3 @@ datePicker.onchange = () => {
     loadPage();
   }
 };
-
