@@ -51,8 +51,16 @@
       <button id="nextPage">Next ➡</button>
     </div>
     <textarea id="pageText" placeholder="Write your thoughts..."></textarea>
+
+    <!-- 🖼 Photo Upload -->
+    <div class="toolbar">
+      <input type="file" id="photoUpload" accept="image/*" multiple>
+      <div id="photoPreview"></div>
+    </div>
+
     <div class="toolbar">
       <button id="savePage">💾 Save Page</button>
+      <button id="downloadPDF">📄 Download PDF</button>
       <button id="toggleTheme">🌙 Toggle Theme</button>
     </div>
     <div class="toolbar">
@@ -63,6 +71,8 @@
     </div>
   </div>
 
+  <!-- PDF Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
