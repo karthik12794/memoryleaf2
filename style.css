@@ -55,6 +55,17 @@ textarea {
   color: white;
 }
 
+/* 🎥 Make videos responsive */
+video {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
 /* 🎥 Play button */
 .playBtn {
   position: absolute;
@@ -92,4 +103,11 @@ body.dark {
 @media (max-width: 600px) {
   textarea { height: 150px; }
   #photoPreview img { width: 70px; height: 70px; }
+
+  video {
+    width: 100vw;   /* force full screen width */
+    height: auto;   /* keep aspect ratio */
+    max-height: 70vh; /* prevents it from going taller than screen */
+    border-radius: 0; /* full bleed, no rounded corners */
+  }
 }
