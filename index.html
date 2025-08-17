@@ -7,18 +7,20 @@
 </head>
 <body>
   <!-- Login Screen -->
-  <div id="login" class="screen">
-    <h1>🔐 Welcome to MemoryLeaf</h1>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button id="loginBtn">Login</button>
-    <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
-    <p><a href="#" id="createAccount">Create New Account</a></p>
+  <div id="login" class="screen login-bg">
+    <div class="login-box">
+      <h1>🔐 Welcome to MemoryLeaf</h1>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button id="loginBtn">Login</button>
+      <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
+      <p><a href="#" id="createAccount">Create New Account</a></p>
+    </div>
   </div>
 
   <!-- Vault Animation -->
   <div id="vaultAnim" class="screen hidden">
-    <video id="vaultVideo" src="assets/vault.mp4"></video>
+    <video id="vaultVideo" src="assets/vault.mp4" autoplay muted></video>
   </div>
 
   <!-- Welcome Screen -->
@@ -29,7 +31,7 @@
 
   <!-- Book Animation -->
   <div id="bookAnim" class="screen hidden">
-    <video id="bookVideo" src="assets/book.mp4"></video>
+    <video id="bookVideo" src="assets/book.mp4" autoplay muted></video>
   </div>
 
   <!-- Diary Dashboard -->
