@@ -33,8 +33,8 @@ async function loadPage() {
     const res = await fetch(`${API_URL}/api/vault/${userId}`);
     const data = await res.json();
 
-    // Filter by current date
-    const entries = data.filter(e => e.site === currentDate);
+    // Filter by current date (backend stores date in "site", content in "password")
+    const entries = data.filter((e) => e.site === currentDate);
 
     // Get entry for this page
     const entry = entries[currentPage];
@@ -45,6 +45,25 @@ async function loadPage() {
   }
   pageNumber.textContent = `Page ${currentPage + 1}`;
   updateDateDisplay();
+}
+
+// --- Autoplay fallback helper ---
+function tryAutoplay(videoEl, buttonEl) {
+  if (!videoEl) return;
+  const attempt = () =>
+    videoEl.play().catch(() => {
+      if (buttonEl) buttonEl.classList.remove("hidden");
+    });
+
+  attempt();
+  videoEl.addEventListener("loadeddata", attempt, { once: true });
+
+  if (buttonEl) {
+    buttonEl.addEventListener("click", () => {
+      videoEl.play();
+      buttonEl.classList.add("hidden");
+    });
+  }
 }
 
 // 🔐 Login
@@ -70,7 +89,10 @@ document.getElementById("loginBtn").onclick = async () => {
 
       login.classList.add("hidden");
       vaultAnim.classList.remove("hidden");
-      document.getElementById("vaultVideo").play();
+
+      const v = document.getElementById("vaultVideo");
+      const btn = document.getElementById("vaultPlay");
+      tryAutoplay(v, btn);
     } else {
       alert("❌ " + data.error);
     }
@@ -91,7 +113,8 @@ document.getElementById("openDiaryBtn").onclick = () => {
   welcome.classList.add("hidden");
   bookAnim.classList.remove("hidden");
   const bookVideo = document.getElementById("bookVideo");
-  bookVideo.play();
+  const bookBtn = document.getElementById("bookPlay");
+  tryAutoplay(bookVideo, bookBtn);
 };
 
 // Book → Diary
@@ -135,7 +158,7 @@ document.getElementById("playSong").onclick = () => {
   const songUrl = document.getElementById("songUrl").value;
   const audioPlayer = document.getElementById("audioPlayer");
 
-  if (fileInput.files.length > 0) {
+  if (fileInput && fileInput.files.length > 0) {
     const file = fileInput.files[0];
     audioPlayer.src = URL.createObjectURL(file);
     audioPlayer.play();
@@ -152,7 +175,7 @@ document.getElementById("forgotPassword").onclick = () => {
   alert("Password reset feature will be added later.");
 };
 
-// ✅ Create Account (now working with backend)
+// ✅ Create Account (works with backend)
 document.getElementById("createAccount").onclick = async () => {
   const user = document.getElementById("username").value;
   const pass = document.getElementById("password").value;
