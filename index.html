@@ -2,37 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MemoryLeaf Login</title>
+  <title>MemoryLeaf</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Background -->
-  <div class="background"></div>
+  <!-- 🌄 Background -->
+  <img src="nature.png" alt="Background" class="bg">
 
-  <!-- Vault Animation -->
-  <video id="vaultAnim" class="fullscreen-video" autoplay muted playsinline loop>
-    <source src="assets/vault.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <!-- 🔐 Login -->
+  <div id="login" class="center">
+    <h1>🌿 MemoryLeaf</h1>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <button id="createAccount">Create Account</button>
+    <button id="forgotPassword">Forgot Password</button>
+  </div>
 
-  <!-- Book Animation -->
-  <video id="bookAnim" class="fullscreen-video" autoplay muted playsinline loop>
-    <source src="assets/book.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <!-- 🏦 Vault Animation -->
+  <div id="vaultAnim" class="hidden center">
+    <video id="vaultVideo" class="bg" playsinline muted>
+      <source src="vault.mp4" type="video/mp4">
+    </video>
+    <button id="vaultPlay" class="playBtn hidden">▶ Play</button>
+  </div>
 
-  <!-- Login Form -->
-  <div class="login-container">
-    <h1>Welcome to MemoryLeaf</h1>
-    <form id="loginForm">
-      <input type="text" placeholder="Username" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-    <div class="links">
-      <a href="#">Forgot Password?</a>
-      <a href="#">Create Account</a>
+  <!-- 👋 Welcome -->
+  <div id="welcome" class="hidden center">
+    <h2>Welcome to your personal diary 🌸</h2>
+    <button id="openDiaryBtn">Open Diary</button>
+  </div>
+
+  <!-- 📖 Book Animation -->
+  <div id="bookAnim" class="hidden center">
+    <video id="bookVideo" class="bg" playsinline muted>
+      <source src="book.mp4" type="video/mp4">
+    </video>
+    <button id="bookPlay" class="playBtn hidden">▶ Play</button>
+  </div>
+
+  <!-- 📓 Diary -->
+  <div id="diary" class="hidden">
+    <div class="toolbar">
+      <button id="prevPage">⬅ Prev</button>
+      <span id="dateDisplay"></span>
+      <input type="date" id="datePicker">
+      <span id="pageNumber">Page 1</span>
+      <button id="nextPage">Next ➡</button>
+    </div>
+    <textarea id="pageText" placeholder="Write your thoughts..."></textarea>
+    <div class="toolbar">
+      <button id="savePage">💾 Save Page</button>
+      <button id="toggleTheme">🌙 Toggle Theme</button>
+    </div>
+    <div class="toolbar">
+      <input type="file" accept="audio/*">
+      <input type="text" id="songUrl" placeholder="Paste song URL">
+      <button id="playSong">🎵 Play Song</button>
+      <audio id="audioPlayer" controls></audio>
     </div>
   </div>
 
