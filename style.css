@@ -55,7 +55,7 @@ textarea {
   color: white;
 }
 
-/* 🎥 Play button (autoplay fallback) */
+/* 🎥 Play button */
 .playBtn {
   position: absolute;
   top: 50%;
@@ -73,7 +73,23 @@ body.dark {
   color: white;
 }
 
+/* 🖼 Photo preview */
+#photoPreview {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 5px;
+}
+#photoPreview img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 /* 📱 Responsive */
 @media (max-width: 600px) {
   textarea { height: 150px; }
+  #photoPreview img { width: 70px; height: 70px; }
 }
